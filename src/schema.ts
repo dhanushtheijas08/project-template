@@ -13,3 +13,5 @@ export const authSchema = z.object({
     .max(255, { message: "Password must be less than 255 characters" })
     .trim(),
 });
+
+export const userTypeSchema = z.literal("admin").or(z.literal("user"));

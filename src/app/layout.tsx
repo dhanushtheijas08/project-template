@@ -5,6 +5,7 @@ import "./globals.css";
 
 import ReactQueryProvider from "@/context/ReactQueryProvider";
 import AuthContextProvider from "@/context/AuthContext";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQueryProvider>
           <AuthContextProvider>
-            {children}
-            <Toaster />
+            <ThemeProvider attribute="class" defaultTheme="system">
+              {children}
+              <Toaster />
+            </ThemeProvider>
           </AuthContextProvider>
         </ReactQueryProvider>
       </body>

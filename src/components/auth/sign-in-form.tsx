@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { authDetails } from "@/constant";
+import { useSignInMutation } from "@/mutations/useAuthMutation";
 import { authSchema } from "@/schema";
 import { AuthTypes } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,15 +20,10 @@ import { useForm } from "react-hook-form";
 export const SignInForm = () => {
   const form = useForm<AuthTypes>({
     resolver: zodResolver(authSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
 
-  function onSubmit(values: AuthTypes) {
-    console.log(values);
-  }
+  const { mutate, status } = useSignInMutation(form);
+  const onSubmit = (values: AuthTypes) => mutate(values);
 
   return (
     <Form {...form}>
@@ -45,6 +41,7 @@ export const SignInForm = () => {
                     {...field}
                     placeholder={detail.placeholder}
                     type={detail.type}
+                    disabled={status === "pending"}
                   />
                 </FormControl>
                 <FormMessage />
@@ -53,8 +50,12 @@ export const SignInForm = () => {
           />
         ))}
 
-        <Button type="submit" className="w-full">
-          Login
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={status === "pending"}
+        >
+          {status === "pending" ? "Loading..." : "Sign In"}
         </Button>
       </form>
     </Form>
