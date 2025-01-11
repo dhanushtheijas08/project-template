@@ -17,7 +17,7 @@ export default function MainLayout({
       <div className="flex h-screen w-full overflow-hidden">
         <DashboardSidebar />
         <SidebarInset className="flex-1 overflow-auto">
-          <header className="flex w-full  h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
+          <header className="flex w-full  h-16 items-center gap-4 border-b bg-background  px-4 py-4 sm:px-6">
             <SidebarTrigger />
             <h1 className="text-lg font-semibold">Dashboard</h1>
             <div className="ml-auto">

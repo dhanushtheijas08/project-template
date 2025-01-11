@@ -2,6 +2,7 @@
 
 import { ChevronsUpDown, LogOut } from "lucide-react";
 
+import { NavUserItem } from "@/components/nav-item";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -19,11 +20,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { userNavItems } from "@/constant";
+import { useSignOutMutation } from "@/mutations/useAuthMutation";
 import { AuthUser } from "@/types";
-import { NavUserItem } from "./nav-item";
 
 export const NavUser = ({ user }: { user: AuthUser | null }) => {
   const { isMobile } = useSidebar();
+  const { mutate } = useSignOutMutation();
   if (!user) return null;
   return (
     <SidebarMenu>
@@ -75,7 +77,7 @@ export const NavUser = ({ user }: { user: AuthUser | null }) => {
               ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => mutate()}>
               <LogOut />
               Log out
             </DropdownMenuItem>

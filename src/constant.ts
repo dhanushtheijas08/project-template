@@ -23,7 +23,7 @@ export const navItems: NavTypes[] = [
     allowedRoles: ["admin", "user"],
   },
   {
-    href: "/dashboard/users",
+    href: "/users",
     label: "Users",
     icon: "Users",
     allowedRoles: ["admin"],

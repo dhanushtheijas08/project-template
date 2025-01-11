@@ -29,3 +29,10 @@ export type AuthUser = {
 };
 
 export type User = Omit<AuthUser, "userToken">;
+
+export type AnalyticsType = {
+  lastMonth: string;
+  activeProjects: string;
+  totalUsers: string;
+  activeUsers: string;
+};

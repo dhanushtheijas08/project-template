@@ -34,9 +34,11 @@ export const DashboardSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t">
-        <NavUser user={user} />
-      </SidebarFooter>
+      {user && (
+        <SidebarFooter className="border-t">
+          <NavUser user={user} />
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 };

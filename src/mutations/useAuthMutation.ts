@@ -46,3 +46,20 @@ export const useSignUpMutation = (form: UseFormReturn<AuthTypes>) => {
     },
   });
 };
+
+export const useSignOutMutation = () => {
+  const router = useRouter();
+  const { signOut } = useAuth();
+  return useMutation({
+    mutationFn: async () => {
+      router.push("/sign-in");
+      await signOut();
+    },
+    onSuccess: () => {
+      toast.success("Sign Out successfully");
+    },
+    onError: (error: any) => {
+      toast.error(error.message);
+    },
+  });
+};
