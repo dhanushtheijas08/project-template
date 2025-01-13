@@ -3,7 +3,6 @@ import OverviewLoader from "@/components/dashboard/overview-card-loader";
 import { Icons } from "@/components/icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useOverviewQuery } from "@/queries/useDashboard";
-
 const DashboardPage = () => {
   const { data, isLoading } = useOverviewQuery();
   const UserIcon = Icons.Users;

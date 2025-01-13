@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { AuthTypes } from "@/types";
@@ -50,12 +50,14 @@ export const useSignUpMutation = (form: UseFormReturn<AuthTypes>) => {
 export const useSignOutMutation = () => {
   const router = useRouter();
   const { signOut } = useAuth();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
       router.push("/sign-in");
       await signOut();
     },
     onSuccess: () => {
+      queryClient.clear();
       toast.success("Sign Out successfully");
     },
     onError: (error: any) => {

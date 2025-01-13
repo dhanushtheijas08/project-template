@@ -15,3 +15,7 @@ export const authSchema = z.object({
 });
 
 export const userTypeSchema = z.literal("admin").or(z.literal("user"));
+
+export const editUserSchema = authSchema
+  .omit({ password: true })
+  .extend({ role: userTypeSchema });
