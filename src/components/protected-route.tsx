@@ -22,9 +22,9 @@ export const ProtectedRoute = ({
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/login");
+      router.push("/sign-in");
     }
-    if (!loading && user && pathname === "/login") {
+    if (!loading && user && pathname === "/sign-in") {
       router.push("/dashboard");
     }
   }, [user, loading, allowedRoles, router, pathname]);

@@ -1,11 +1,17 @@
 import { z } from "zod";
-import { authSchema, editUserSchema, userTypeSchema } from "@/schema";
+import {
+  authSchema,
+  editUserSchema,
+  todoSchema,
+  userTypeSchema,
+} from "@/schema";
 import { Icons } from "@/components/icons";
 
 export type AuthTypes = z.infer<typeof authSchema>;
 export type UserType = z.infer<typeof userTypeSchema>;
 export type IconName = keyof typeof Icons;
 export type EditUserType = z.infer<typeof editUserSchema>;
+export type TodoType = z.infer<typeof todoSchema>;
 
 export type AuthCardProps = {
   children: React.ReactNode;

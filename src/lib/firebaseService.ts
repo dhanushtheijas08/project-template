@@ -1,11 +1,16 @@
 import {
   collection,
-  addDoc,
   getDocs,
-  updateDoc,
-  deleteDoc,
+  query,
+  where,
+  orderBy,
+  limit,
   doc,
   getDoc,
+  WhereFilterOp,
+  addDoc,
+  updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -132,6 +137,77 @@ export const deleteDocument = async (
     return {
       success: false,
       message: `Failed to delete document: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+    };
+  }
+};
+
+export type WhereCondition = [
+  field: string,
+  operator: WhereFilterOp,
+  value: any
+];
+
+interface QueryOptions {
+  whereConditions?: WhereCondition[];
+  orderByField?: string;
+  orderDirection?: "asc" | "desc";
+  limitValue?: number;
+}
+
+export const getDocumentsWithFilters = async <T>(
+  collectionName: string,
+  options?: QueryOptions
+): Promise<Response<T[]>> => {
+  try {
+    const collectionRef = collection(db, collectionName);
+
+    let q = query(collectionRef);
+
+    // Apply where conditions if provided
+    if (options?.whereConditions) {
+      options.whereConditions.forEach(([field, operator, value]) => {
+        q = query(q, where(field, operator, value));
+      });
+    }
+
+    // Apply orderBy if provided
+    if (options?.orderByField) {
+      q = query(
+        q,
+        orderBy(options.orderByField, options.orderDirection || "asc")
+      );
+    }
+
+    // Apply limit if provided
+    if (options?.limitValue) {
+      q = query(q, limit(options.limitValue));
+    }
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as T[];
+      return {
+        success: true,
+        message: "Documents fetched successfully.",
+        data,
+      };
+    } else {
+      return {
+        success: false,
+        message: "No matching documents found.",
+      };
+    }
+  } catch (error) {
+    console.error("Error getting documents:", error);
+    return {
+      success: false,
+      message: `Failed to get documents: ${
         error instanceof Error ? error.message : "Unknown error"
       }`,
     };

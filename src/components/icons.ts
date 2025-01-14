@@ -8,6 +8,7 @@ import {
   Copy,
   Trash2,
   Edit2,
+  ListTodo,
 } from "lucide-react";
 
 export const Icons = {
@@ -20,4 +21,5 @@ export const Icons = {
   Copy,
   Trash: Trash2,
   Edit: Edit2,
+  Todo: ListTodo,
 };

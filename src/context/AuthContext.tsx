@@ -166,7 +166,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     try {
       setUser(null);
       localStorage.removeItem("authUser");
-      router.push("/login");
+      router.push("/sign-in");
       await signOut(auth);
       toast.success("You have been signed out.");
     } catch (error) {

@@ -34,6 +34,12 @@ export const navItems: NavTypes[] = [
     icon: "Settings",
     allowedRoles: ["admin"],
   },
+  {
+    href: "/todos",
+    label: "Todos",
+    icon: "Todo",
+    allowedRoles: ["admin", "user"],
+  },
 ];
 
 export const userNavItems: NavTypes[] = [

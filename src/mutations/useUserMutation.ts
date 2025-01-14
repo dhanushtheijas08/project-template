@@ -22,6 +22,7 @@ export const useEditUser = () => {
   return useMutation({
     mutationFn: async (data: any) => {
       console.log(data);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     },
     onSuccess: () => {
       toast.success("User has been successfully updated");

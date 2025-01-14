@@ -19,3 +19,13 @@ export const userTypeSchema = z.literal("admin").or(z.literal("user"));
 export const editUserSchema = authSchema
   .omit({ password: true })
   .extend({ role: userTypeSchema });
+
+export const todoSchema = z.object({
+  userId: z.string({ required_error: "User id is required" }),
+  title: z
+    .string({ required_error: "Title is required" })
+    .min(3, { message: "Title must containes 3 characters" })
+    .max(255, { message: "Title must be less than 255 characters" })
+    .trim(),
+  status: z.enum(["completed", "in-progress", "not-started"]),
+});
