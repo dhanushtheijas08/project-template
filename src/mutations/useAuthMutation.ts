@@ -56,10 +56,7 @@ export const useSignOutMutation = () => {
       router.push("/sign-in");
       await signOut();
     },
-    onSuccess: () => {
-      queryClient.clear();
-      toast.success("Sign Out successfully");
-    },
+    onSuccess: () => queryClient.clear(),
     onError: (error: any) => {
       toast.error(error.message);
     },
