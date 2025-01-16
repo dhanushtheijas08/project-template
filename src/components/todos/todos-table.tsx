@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,17 +12,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -35,6 +31,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import DeleteMultiTodosDialog from "./delete-multi-todos";
+
+function isEmpty(obj: object): boolean {
+  return Object.entries(obj).length === 0;
+}
 
 type TodosTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -64,6 +65,7 @@ export function TodosTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row?.id,
     state: {
       sorting,
       columnFilters,
@@ -83,6 +85,11 @@ export function TodosTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+        {isEmpty(rowSelection) || (
+          <DeleteMultiTodosDialog todoIds={Object.keys(rowSelection)} />
+        )}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

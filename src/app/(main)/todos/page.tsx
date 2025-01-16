@@ -9,8 +9,7 @@ import { useFetchTodos, useFetchUsers } from "@/queries/useTodos";
 
 const TodosPage = () => {
   const { user } = useAuth();
-  const { data: usersData, isLoading } = useFetchUsers();
-  const { data: todosData } = useFetchTodos(user?.uid || "");
+  const { data: todosData, isLoading } = useFetchTodos(user?.uid || "");
 
   return (
     <ProtectedRoute allowedRoles={["admin", "user"]}>
@@ -23,10 +22,7 @@ const TodosPage = () => {
         {isLoading ? (
           <TableSkeleton />
         ) : (
-          todosData &&
-          todosData.length !== 0 && (
-            <TodosTable columns={todosColumns} data={todosData} />
-          )
+          <TodosTable columns={todosColumns} data={todosData || []} />
         )}
       </div>
     </ProtectedRoute>
