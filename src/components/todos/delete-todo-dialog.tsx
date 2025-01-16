@@ -9,19 +9,19 @@ import {
   ResponsiveDialogTitle,
 } from "@/components/responsive-dialog";
 import { Button } from "@/components/ui/button";
-import { useDeleteUser } from "@/mutations/useUserMutation";
+import { useDeleteTodo } from "@/mutations/useTodosMutation";
 
 const DeleteIcon = Icons.Trash;
-const DeleteUserDialog = ({
-  userId,
+const DeleteTodoDialog = ({
+  todoId,
   dialogOpen,
   setDialogOpen,
 }: {
-  userId: string;
+  todoId: string;
   dialogOpen: boolean;
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { mutate: deleteUser, status } = useDeleteUser();
+  const { mutate: deleteTodo, status } = useDeleteTodo();
 
   return (
     <ResponsiveDialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -47,7 +47,7 @@ const DeleteUserDialog = ({
           <Button
             variant="destructive"
             onClick={() =>
-              deleteUser(userId, {
+              deleteTodo(todoId, {
                 onSuccess: () => setDialogOpen(false),
               })
             }
@@ -61,4 +61,4 @@ const DeleteUserDialog = ({
     </ResponsiveDialog>
   );
 };
-export default DeleteUserDialog;
+export default DeleteTodoDialog;

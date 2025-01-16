@@ -21,6 +21,7 @@ export const editUserSchema = authSchema
   .extend({ role: userTypeSchema });
 
 export const todoSchema = z.object({
+  id: z.string().optional(),
   userId: z.string({ required_error: "User id is required" }),
   title: z
     .string({ required_error: "Title is required" })

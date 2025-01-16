@@ -7,36 +7,35 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DeleteUserDialog from "@/components/users/delete-user-dialog";
-import { UserWithId } from "@/types";
+import { TodoType } from "@/types";
 import { Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
-import EditUserDialog from "./edit-user-dialog";
+import DeleteTodoDialog from "./delete-todo-dialog";
+import EditUserDialog from "./edit-todo-dialog";
 
 const CopyIcon = Icons.Copy;
 const EditIcon = Icons.Edit;
 const DeleteIcon = Icons.Trash;
 
-const UserAction = ({ row }: { row: Row<UserWithId> }) => {
-  const userId = row.original.id;
+const TodosAction = ({ row }: { row: Row<TodoType> }) => {
+  const todoId = row.original.id;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   return (
     <>
-      <DeleteUserDialog
-        userId={userId}
+      <DeleteTodoDialog
+        todoId={todoId!}
         dialogOpen={deleteDialogOpen}
         setDialogOpen={setDeleteDialogOpen}
       />
 
       <EditUserDialog
-        userId={userId}
+        todoId={todoId!}
         dialogOpen={editDialogOpen}
         setDialogOpen={setEditDialogOpen}
-        userData={row.original}
+        todoData={row.original}
       />
 
       <DropdownMenu>
@@ -48,7 +47,7 @@ const UserAction = ({ row }: { row: Row<UserWithId> }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-40">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
+          {/* <DropdownMenuItem
             onClick={() => {
               navigator.clipboard.writeText(userId);
               toast.success("User ID copied to clipboard");
@@ -56,14 +55,14 @@ const UserAction = ({ row }: { row: Row<UserWithId> }) => {
           >
             <CopyIcon className="h-4 w-4 ml-1 text-muted-foreground" />
             Copy User ID
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem onClick={() => setEditDialogOpen(true)}>
             <EditIcon className="h-4 w-4 ml-1 text-muted-foreground" />
-            Edit User
+            Edit Todo
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
             <DeleteIcon className="h-4 w-4 ml-1 text-muted-foreground" />
-            <span>Delete User</span>
+            <span>Delete Todo</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -71,4 +70,4 @@ const UserAction = ({ row }: { row: Row<UserWithId> }) => {
   );
 };
 
-export default UserAction;
+export default TodosAction;

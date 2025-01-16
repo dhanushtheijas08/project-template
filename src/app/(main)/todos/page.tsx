@@ -1,10 +1,11 @@
 "use client";
 import { ProtectedRoute } from "@/components/protected-route";
+import TableSkeleton from "@/components/table-skeleton";
 import CreateTodoDialog from "@/components/todos/create-todo-dialog";
-import { userColumns } from "@/components/users/user-columns";
-import { UsersTable } from "@/components/users/users-table";
+import { todosColumns } from "@/components/todos/todos-columns";
+import { TodosTable } from "@/components/todos/todos-table";
 import { useAuth } from "@/context/AuthContext";
-import { useFetchTodos, useFetchUsers } from "@/queries/useUsers";
+import { useFetchTodos, useFetchUsers } from "@/queries/useTodos";
 
 const TodosPage = () => {
   const { user } = useAuth();
@@ -20,11 +21,11 @@ const TodosPage = () => {
           <CreateTodoDialog />
         </div>
         {isLoading ? (
-          <p>Loading..</p>
+          <TableSkeleton />
         ) : (
-          usersData &&
-          usersData.length !== 0 && (
-            <UsersTable columns={userColumns} data={usersData} />
+          todosData &&
+          todosData.length !== 0 && (
+            <TodosTable columns={todosColumns} data={todosData} />
           )
         )}
       </div>

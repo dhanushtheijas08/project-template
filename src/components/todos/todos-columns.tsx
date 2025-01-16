@@ -1,10 +1,9 @@
 "use client";
 
+import UserTodosAction from "@/components/todos/todos-action";
 import { Checkbox } from "@/components/ui/checkbox";
-import UserAction from "@/components/users/user-action";
 import { TodoType } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import UserTodosAction from "./user-action";
 
 export const todosColumns: ColumnDef<TodoType>[] = [
   {
@@ -39,7 +38,6 @@ export const todosColumns: ColumnDef<TodoType>[] = [
   },
   {
     id: "actions",
-    header: "Actions",
     cell: ({ row }) => <UserTodosAction row={row} />,
   },
 ];
