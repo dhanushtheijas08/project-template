@@ -37,12 +37,12 @@ function isEmpty(obj: object): boolean {
   return Object.entries(obj).length === 0;
 }
 
-type TodosTableProps<TData, TValue> = {
+type TodosTableProps<TData extends { id?: string }, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 };
 
-export function TodosTable<TData, TValue>({
+export function TodosTable<TData extends { id?: string }, TValue>({
   columns,
   data,
 }: TodosTableProps<TData, TValue>) {
@@ -65,7 +65,7 @@ export function TodosTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    getRowId: (row) => row?.id,
+    getRowId: (row, index) => row.id ?? index.toString(),
     state: {
       sorting,
       columnFilters,

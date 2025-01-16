@@ -5,7 +5,7 @@ import CreateTodoDialog from "@/components/todos/create-todo-dialog";
 import { todosColumns } from "@/components/todos/todos-columns";
 import { TodosTable } from "@/components/todos/todos-table";
 import { useAuth } from "@/context/AuthContext";
-import { useFetchTodos, useFetchUsers } from "@/queries/useTodos";
+import { useFetchTodos } from "@/queries/useTodos";
 
 const TodosPage = () => {
   const { user } = useAuth();
