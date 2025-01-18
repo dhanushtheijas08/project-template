@@ -15,9 +15,11 @@ import { Icons } from "../icons";
 const TodoIcon = Icons.Todo;
 
 const CreateTodoDialog = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+
   return (
-    <ResponsiveDialog open={isCreating} onOpenChange={setIsCreating}>
+    <ResponsiveDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <ResponsiveDialogTrigger asChild>
         <Button>
           <TodoIcon /> Create
@@ -29,11 +31,14 @@ const CreateTodoDialog = () => {
           <ResponsiveDialogTitle>Create Todo</ResponsiveDialogTitle>
         </ResponsiveDialogHeader>
 
-        <CreateTodoForm setIsCreating={setIsCreating} />
+        <CreateTodoForm
+          setIsCreating={setIsCreating}
+          setDialogOpen={setDialogOpen}
+        />
 
         <ResponsiveDialogFooter>
-          <Button type="submit" form="create-todo-form" disabled={!isCreating}>
-            {isCreating ? "Create" : "Creating..."}
+          <Button type="submit" form="create-todo-form" disabled={isCreating}>
+            {isCreating ? "Creating..." : "Create"}
           </Button>
         </ResponsiveDialogFooter>
       </ResponsiveDialogContent>

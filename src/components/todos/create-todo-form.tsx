@@ -24,8 +24,10 @@ import { useCreateTodo } from "@/mutations/useTodosMutation";
 
 const CreateTodoForm = ({
   setIsCreating,
+  setDialogOpen,
 }: {
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { user } = useAuth();
   const form = useForm<TodoType>({
@@ -38,8 +40,15 @@ const CreateTodoForm = ({
   });
 
   const { mutate: createTodo, status } = useCreateTodo();
-  const onSubmit = (todo: TodoType) =>
-    createTodo(todo, { onSuccess: () => setIsCreating(false) });
+  const onSubmit = (todo: TodoType) => {
+    setIsCreating(true);
+    createTodo(todo, {
+      onSuccess: () => {
+        setIsCreating(false);
+        setDialogOpen(false);
+      },
+    });
+  };
 
   return (
     <Form {...form}>

@@ -19,7 +19,7 @@ export const useFetchUsers = () => {
 
 export const useFetchTodos = (userId: string) => {
   return useQuery({
-    queryKey: ["todos", userId],
+    queryKey: ["todos"],
     queryFn: async () => {
       const result = await getDocumentsWithFilters("todos", {
         whereConditions: [["userId", "==", userId]],
